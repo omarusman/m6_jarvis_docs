@@ -14,7 +14,6 @@ toc_footers:
 
 includes:
   - auth
-  - errors
 
 search: true
 ---
