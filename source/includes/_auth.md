@@ -247,6 +247,10 @@ mutation {
 This requires an <a href="#authentication">authentication</a>
 </aside>
 
+<aside class="notice">
+You must replace <code>{access_token}</code> with your assigned access token.
+</aside>
+
 > Request:
 
 ```shell
