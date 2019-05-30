@@ -354,3 +354,134 @@ dataTask.resume()
   }
 }
 ```
+
+## Refresh Token
+
+For short-lived access tokens, users can refresh access tokens via the refresh token that was provided by [login()](#login).
+
+> GraphQL Query:
+
+```graphql 
+mutation {
+  refreshToken(data: {
+    refresh_token: "{request_token}"}) {
+    access_token
+    refresh_token
+    expires_in
+    token_type
+  }
+}
+```
+
+__Input Parameters:__
+
+Fields | Required
+---------- | ------- 
+__request_token__ | yes
+
+<aside class="notice">
+This <strong>does not</strong> require an <a href="#authentication">authentication</a>.
+</aside>
+
+<aside class="notice">
+You must replace <code>{request_token}</code> with your request token.
+</aside>
+
+> Request:
+
+```shell
+curl --request POST \
+  --url http://localhost:8000/graphql \
+  --header 'content-type: application/json' \
+  --data '{"query":"mutation {\n  refreshToken(data: {\n    refresh_token: \"{request_token}\"}) {\n    access_token\n    refresh_token\n    expires_in\n    token_type\n  }\n}\n"}'
+```
+
+```javascript
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "http://localhost:8000/graphql",
+  "method": "POST",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "data": "{\"query\":\"mutation {\\n  refreshToken(data: {\\n    refresh_token: \\\"{request_token}\\\"}) {\\n    access_token\\n    refresh_token\\n    expires_in\\n    token_type\\n  }\\n}\\n\"}"
+}
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+```
+
+```php
+<?php
+
+$client = new http\Client;
+$request = new http\Client\Request;
+
+$body = new http\Message\Body;
+$body->append('{"query":"mutation {\\n  refreshToken(data: {\\n    refresh_token: \\"{request_token}\\"}) {\\n    access_token\\n    refresh_token\\n    expires_in\\n    token_type\\n  }\\n}\\n"}');
+
+$request->setRequestUrl('http://localhost:8000/graphql');
+$request->setRequestMethod('POST');
+$request->setBody($body);
+
+$request->setHeaders(array(
+  'content-type' => 'application/json'
+));
+
+$client->enqueue($request)->send();
+$response = $client->getResponse();
+
+echo $response->getBody();
+```
+
+```java 
+HttpResponse<String> response = Unirest.post("http://localhost:8000/graphql")
+  .header("content-type", "application/json")
+  .body("{\"query\":\"mutation {\\n  refreshToken(data: {\\n    refresh_token: \\\"{request_token}\\\"}) {\\n    access_token\\n    refresh_token\\n    expires_in\\n    token_type\\n  }\\n}\\n\"}")
+  .asString();
+```
+
+```swift 
+import Foundation
+
+let headers = ["content-type": "application/json"]
+
+let postData = NSData(data: "{"query":"mutation {\n  refreshToken(data: {\n    refresh_token: \"{request_token}\"}) {\n    access_token\n    refresh_token\n    expires_in\n    token_type\n  }\n}\n"}".data(using: String.Encoding.utf8)!)
+
+let request = NSMutableURLRequest(url: NSURL(string: "http://localhost:8000/graphql")! as URL,
+                                        cachePolicy: .useProtocolCachePolicy,
+                                    timeoutInterval: 10.0)
+request.httpMethod = "POST"
+request.allHTTPHeaderFields = headers
+request.httpBody = postData as Data
+
+let session = URLSession.shared
+let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+  if (error != nil) {
+    print(error)
+  } else {
+    let httpResponse = response as? HTTPURLResponse
+    print(httpResponse)
+  }
+})
+
+dataTask.resume()
+```
+
+> Response:
+
+```json
+{
+  "data": {
+    "refreshToken": {
+      "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImM5MTY5ZjM5MTEyMDYyOTc2YjE1ZmU4YjI5ZTk0ZTFmYTFhMmI5YTgyMDUxYjk4YWNkZDVmZmNhZDk5NDYzMDIzNDJiNmU4N2Q4MTMzYzJmIn0.eyJhdWQiOiIyIiwianRpIjoiYzkxNjlmMzkxMTIwNjI5NzZiMTVmZThiMjllOTRlMWZhMWEyYjlhODIwNTFiOThhY2RkNWZmY2FkOTk0NjMwMjM0MmI2ZTg3ZDgxMzNjMmYiLCJpYXQiOjE1NTkyMzA1NTgsIm5iZiI6MTU1OTIzMDU1OCwiZXhwIjoxNTkwODUyOTU4LCJzdWIiOiIzODYiLCJzY29wZXMiOltdfQ.3Bw5AWWn3vNMTvKqxSlCnFWLSjBBAJA76DKY2oVMP1DhFVPBLfiw3RKBY2sFxMWLqVFmOn_x_L43JtEZk4TN3hCIqHvXCecA6XKnN_mX-d5eroIw10VsQlFWuhukZ-IsFtmd-k1--3eYRUDkQw2kOYZqwvBlU_sLdX46HVpQJrLYZNe76lBI1ZQesb3n1pu31WE8egwPkH72BtplT_abjSZlfsejW1XjhYMFQ2FRvzufp0XANa_UlauA-IqwnNDhFz031ukWrtIrqyfC8l3gmi8h2i5Gbce2Q-BtcxGYxNo8VzDJh10zRbwlZ5P5q8jkgfGTe2C7nsVUInU7ofWwN_-WetKCiF6VO6PNVc7KlZJIG7L-KU9FTJp-chwjUOthCn1qSFzldO64X4mdLGjdLiYJnJL--o4FL-xMk2SLb3X38GzlTwN9-PoYVkla5gO3iDaM-ddvQNW_VH3yrc-8WQkMC6sbGfKcF5ZY2T6i6DFgYBWiWtTQCUpBJ3XIR5Pn8yW5xGMr32OINnQbz72E_gwpAX3-V5NuFErBCbOTRHFIzmWuaJah7XZy3bEg6b2gkV_iM87r316UzZ7jG6Z0xBfRxpmhL4HMPySlSSjyAmgI-JC_snrxCpoh90qY7DKuLkO7DhBUgWS-YcLIVRuTXAdoj-8yucbl9oD8GLHuudQ",
+      "refresh_token": "{request_token}",
+      "expires_in": 31622400,
+      "token_type": "Bearer"
+    }
+  }
+}
+```
+
