@@ -403,6 +403,7 @@ html, body {
       text-align: left;
       vertical-align: top;
       line-height: 1.6;
+
       code {
         white-space: nowrap;
       }
@@ -468,6 +469,12 @@ html, body {
     margin-bottom: 1.5em;
     background: $aside-notice-bg;
     line-height: 1.6;
+
+    a {
+      color: $nav-bg;
+      text-decoration: none;
+    }
+
 
     &.warning {
       background-color: $aside-warning-bg;
