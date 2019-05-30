@@ -606,4 +606,127 @@ dataTask.resume()
 }
 ```
 
+## Update Forgotten Password
+
+Allows to change the password after a forgot password request.
+
+> GraphQL Query:
+
+```graphql 
+mutation {
+  updateForgottenPassword(data: {email: "john@doe.com", token: "$2y$10$xx", password: "newsecret", password_confirmation: "newsecret"}) {
+    status
+    message
+  }
+}
+```
+
+__Input Parameters:__
+
+Fields | Required
+---------- | ------- 
+__email__ | yes
+__token__ | yes
+__password__ | yes
+__password_confirmation__ | yes
+
+<aside class="notice">
+This <strong>does not</strong> require an <a href="#authentication">authentication</a>.
+</aside>
+
+> Request:
+
+```shell
+curl --request POST \
+  --url http://localhost:8000/graphql \
+  --header 'content-type: application/json' \
+  --data '{"query":"mutation {\n  updateForgottenPassword(data: {email: \"john@doe.com\", token: \"$2y$10$xx\", password: \"newsecret\", password_confirmation: \"newsecret\"}) {\n    status\n    message\n  }\n}\n"}'
+```
+
+```javascript
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "http://localhost:8000/graphql",
+  "method": "POST",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "data": "{\"query\":\"mutation {\\n  updateForgottenPassword(data: {email: \\\"john@doe.com\\\", token: \\\"$2y$10$xx\\\", password: \\\"newsecret\\\", password_confirmation: \\\"newsecret\\\"}) {\\n    status\\n    message\\n  }\\n}\\n\"}"
+}
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+```
+
+```php
+<?php
+
+$client = new http\Client;
+$request = new http\Client\Request;
+
+$body = new http\Message\Body;
+$body->append('{"query":"mutation {\\n  updateForgottenPassword(data: {email: \\"john@doe.com\\", token: \\"$2y$10$xx\\", password: \\"newsecret\\", password_confirmation: \\"newsecret\\"}) {\\n    status\\n    message\\n  }\\n}\\n"}');
+
+$request->setRequestUrl('http://localhost:8000/graphql');
+$request->setRequestMethod('POST');
+$request->setBody($body);
+
+$request->setHeaders(array(
+  'content-type' => 'application/json'
+));
+
+$client->enqueue($request)->send();
+$response = $client->getResponse();
+
+echo $response->getBody();
+```
+
+```java 
+HttpResponse<String> response = Unirest.post("http://localhost:8000/graphql")
+  .header("content-type", "application/json")
+  .body("{\"query\":\"mutation {\\n  updateForgottenPassword(data: {email: \\\"john@doe.com\\\", token: \\\"$2y$10$xx\\\", password: \\\"newsecret\\\", password_confirmation: \\\"newsecret\\\"}) {\\n    status\\n    message\\n  }\\n}\\n\"}")
+  .asString();
+```
+
+```swift 
+import Foundation
+
+let headers = ["content-type": "application/json"]
+
+let postData = NSData(data: "{"query":"mutation {\n  updateForgottenPassword(data: {email: \"john@doe.com\", token: \"$2y$10$xx\", password: \"newsecret\", password_confirmation: \"newsecret\"}) {\n    status\n    message\n  }\n}\n"}".data(using: String.Encoding.utf8)!)
+
+let request = NSMutableURLRequest(url: NSURL(string: "http://localhost:8000/graphql")! as URL,
+                                        cachePolicy: .useProtocolCachePolicy,
+                                    timeoutInterval: 10.0)
+request.httpMethod = "POST"
+request.allHTTPHeaderFields = headers
+request.httpBody = postData as Data
+
+let session = URLSession.shared
+let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+  if (error != nil) {
+    print(error)
+  } else {
+    let httpResponse = response as? HTTPURLResponse
+    print(httpResponse)
+  }
+})
+
+dataTask.resume()
+```
+
+> Response:
+
+```json
+{
+  "data": {
+    "updateForgottenPassword": {
+      "status": "PASSWORD_UPDATED",
+      "message": "Your password has been reset!"
+    }
+  }
+}
+```
 
