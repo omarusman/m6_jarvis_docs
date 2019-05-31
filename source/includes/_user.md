@@ -334,6 +334,216 @@ dataTask.resume()
 }
 ```
 
+## List Users
+
+Allows to get a list of users.
+
+> GraphQL Type:
+
+```graphql
+type PaginatorInfo {
+    currentPage: Int!
+    lastPage: Int!
+}
+
+type Paginator {
+    data: User!
+    paginatorInfo: PaginatorInfo!
+}
+```
+
+> GraphQL Query:
+
+```graphql 
+{
+  listUsers(count: 100, page: 1) {
+    data {
+      id
+      uuid
+      name
+      email
+      role
+      company_id
+      parent_id
+      admin_token
+      profile_picture
+      first_login
+      last_login
+      tfa_secret
+      created_at
+      updated_at
+    }
+    paginatorInfo {
+      currentPage
+      lastPage
+    }
+  }
+}
+```
+
+__Input Parameters:__
+
+Fields | Required
+---------- | ------- 
+__count__ | yes
+__page__ | no
+
+<aside class="notice">
+This requires an <a href="#authentication">authentication</a>.
+</aside>
+
+<aside class="success">
+This returns a paginated <a href="#user-type">User Type</a>.
+</aside>
+
+> Request:
+
+```shell
+curl --request POST \
+  --url http://localhost:8000/graphql \
+  --header 'content-type: application/json' \
+  --data '{"query":"{\n  listUsers(count: 100, page: 1) {\n    data {\n      id\n      uuid\n      name\n      email\n      role\n      company_id\n      parent_id\n      admin_token\n      profile_picture\n      first_login\n      last_login\n      tfa_secret\n      created_at\n      updated_at\n    }\n    paginatorInfo {\n      currentPage\n      lastPage\n    }\n  }\n}\n"}'
+```
+
+```javascript
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "http://localhost:8000/graphql",
+  "method": "POST",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "data": "{\"query\":\"{\\n  listUsers(count: 100, page: 1) {\\n    data {\\n      id\\n      uuid\\n      name\\n      email\\n      role\\n      company_id\\n      parent_id\\n      admin_token\\n      profile_picture\\n      first_login\\n      last_login\\n      tfa_secret\\n      created_at\\n      updated_at\\n    }\\n    paginatorInfo {\\n      currentPage\\n      lastPage\\n    }\\n  }\\n}\\n\"}"
+}
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+```
+
+```php
+<?php
+
+$client = new http\Client;
+$request = new http\Client\Request;
+
+$body = new http\Message\Body;
+$body->append('{"query":"{\\n  listUsers(count: 100, page: 1) {\\n    data {\\n      id\\n      uuid\\n      name\\n      email\\n      role\\n      company_id\\n      parent_id\\n      admin_token\\n      profile_picture\\n      first_login\\n      last_login\\n      tfa_secret\\n      created_at\\n      updated_at\\n    }\\n    paginatorInfo {\\n      currentPage\\n      lastPage\\n    }\\n  }\\n}\\n"}');
+
+$request->setRequestUrl('http://localhost:8000/graphql');
+$request->setRequestMethod('POST');
+$request->setBody($body);
+
+$request->setHeaders(array(
+  'content-type' => 'application/json'
+));
+
+$client->enqueue($request)->send();
+$response = $client->getResponse();
+
+echo $response->getBody();
+```
+
+```java 
+HttpResponse<String> response = Unirest.post("http://localhost:8000/graphql")
+  .header("content-type", "application/json")
+  .body("{\"query\":\"{\\n  listUsers(count: 100, page: 1) {\\n    data {\\n      id\\n      uuid\\n      name\\n      email\\n      role\\n      company_id\\n      parent_id\\n      admin_token\\n      profile_picture\\n      first_login\\n      last_login\\n      tfa_secret\\n      created_at\\n      updated_at\\n    }\\n    paginatorInfo {\\n      currentPage\\n      lastPage\\n    }\\n  }\\n}\\n\"}")
+  .asString();
+```
+
+```swift 
+import Foundation
+
+let headers = ["content-type": "application/json"]
+
+let postData = NSData(data: "{"query":"{\n  listUsers(count: 100, page: 1) {\n    data {\n      id\n      uuid\n      name\n      email\n      role\n      company_id\n      parent_id\n      admin_token\n      profile_picture\n      first_login\n      last_login\n      tfa_secret\n      created_at\n      updated_at\n    }\n    paginatorInfo {\n      currentPage\n      lastPage\n    }\n  }\n}\n"}".data(using: String.Encoding.utf8)!)
+
+let request = NSMutableURLRequest(url: NSURL(string: "http://localhost:8000/graphql")! as URL,
+                                        cachePolicy: .useProtocolCachePolicy,
+                                    timeoutInterval: 10.0)
+request.httpMethod = "POST"
+request.allHTTPHeaderFields = headers
+request.httpBody = postData as Data
+
+let session = URLSession.shared
+let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+  if (error != nil) {
+    print(error)
+  } else {
+    let httpResponse = response as? HTTPURLResponse
+    print(httpResponse)
+  }
+})
+
+dataTask.resume()
+```
+
+> Response:
+
+```json
+{
+  "data": {
+    "listUsers": {
+      "data": [
+        {
+          "id": "434",
+          "uuid": "912a6cd0-3f84-4703-972f-76380105a413",
+          "name": "John Doe",
+          "email": "john@doe.com",
+          "role": "subscriber",
+          "company_id": null,
+          "parent_id": null,
+          "admin_token": null,
+          "profile_picture": null,
+          "first_login": null,
+          "last_login": null,
+          "tfa_secret": null,
+          "created_at": "2019-05-31 16:54:48",
+          "updated_at": "2019-05-31 16:54:48"
+        },
+        {
+          "id": "435",
+          "uuid": "912a6cd0-3f84-4703-972f-76380105a414",
+          "name": "Will Smith",
+          "email": "john@doe.com",
+          "role": "subscriber",
+          "company_id": "912a6cd0-3f84-4703-972f-76380105a413",
+          "parent_id": null,
+          "admin_token": null,
+          "profile_picture": null,
+          "first_login": null,
+          "last_login": null,
+          "tfa_secret": null,
+          "created_at": "2019-05-31 16:57:36",
+          "updated_at": "2019-05-31 17:27:25"
+        },
+        {
+          "id": "436",
+          "uuid": "912a6cd0-3f84-4703-972f-76380105a415",
+          "name": "John Doe",
+          "email": "john@doe.com",
+          "role": "subscriber",
+          "company_id": "912a6cd0-3f84-4703-972f-76380105a413",
+          "parent_id": null,
+          "admin_token": null,
+          "profile_picture": null,
+          "first_login": null,
+          "last_login": null,
+          "tfa_secret": null,
+          "created_at": "2019-05-31 17:06:00",
+          "updated_at": "2019-05-31 17:06:00"
+        }
+      ],
+      "paginatorInfo": {
+        "currentPage": 1,
+        "lastPage": 1
+      }
+    }
+  }
+}
+```
+
 ## Update User
 
 Allows to update an existing user.
