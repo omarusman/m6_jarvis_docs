@@ -23,18 +23,18 @@ under the License.
 
 // BACKGROUND COLORS
 ////////////////////
-$nav-bg: #7D1F91 !default;
-$examples-bg: #3e0f49 !default;
-$code-bg: #28052d !default;
-$code-annotation-bg: #210b2a !default;
-$nav-subitem-bg: #4c1157 !default;
-$nav-active-bg: #3e0f49 !default;
-$nav-active-parent-bg: #3e0f49 !default; // parent links of the current section
+$nav-bg: #ffffff !default;
+$examples-bg: #22FBCC !default;
+$code-bg: #252525 !default;
+$code-annotation-bg: #111111 !default;
+$nav-subitem-bg: rgba(35, 255, 204, 0.55) !default;
+$nav-active-bg: #22FBCC !default;
+$nav-active-parent-bg: $nav-active-bg !default; // parent links of the current section
 $lang-select-border: $nav-active-bg !default;
-$lang-select-bg: #7D1F91 !default;
-$lang-select-active-bg: $nav-active-bg !default; // feel free to change this to blue or something
-$lang-select-pressed-bg: $nav-subitem-bg !default; // color of language tab bg when mouse is pressed
-$main-bg: #F3F7F9 !default;
+$lang-select-bg: #5E02FA !default;
+$lang-select-active-bg: $examples-bg !default; // feel free to change this to blue or something
+$lang-select-pressed-bg: $nav-active-bg !default; // color of language tab bg when mouse is pressed
+$main-bg: #ffffff !default;
 $aside-notice-bg: #fffbdf !default;
 $aside-warning-bg: #c97a7e !default;
 $aside-success-bg: #effff0 !default;
@@ -43,13 +43,13 @@ $search-notice-bg: #c97a7e !default;
 
 // TEXT COLORS
 ////////////////////
-$main-text: #333 !default; // main content text color
-$nav-text: #fff !default;
-$nav-active-text: #fff !default;
-$nav-active-parent-text: #fff !default; // parent links of the current section
-$lang-select-text: #fff !default; // color of unselected language tab text
-$lang-select-active-text: #fff !default; // color of selected language tab text
-$lang-select-pressed-text: #fff !default; // color of language tab text when mouse is pressed
+$main-text: #262626 !default; // main content text color
+$nav-text: $main-text !default;
+$nav-active-text: $main-text !default;
+$nav-active-parent-text: $main-text !default; // parent links of the current section
+$lang-select-text: #ffffff !default; // color of unselected language tab text
+$lang-select-active-text: $main-text !default; // color of selected language tab text
+$lang-select-pressed-text: $main-text !default; // color of language tab text when mouse is pressed
 
 
 // SIZES

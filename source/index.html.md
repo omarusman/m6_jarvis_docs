@@ -9,7 +9,7 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - swift
 
 toc_footers:
-  - <a href='https://mesasix.com' target='_blank'>To learn more about Jarvis</a>
+  - <a href='https://www.jarvisanalytics.com' target='_blank'>To learn more about Jarvis Analytics</a>
   - <a href='https://mesasix.com' target='_blank'>Service Provided by Mesasix</a>
 
 includes:
