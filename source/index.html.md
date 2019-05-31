@@ -14,6 +14,7 @@ toc_footers:
 
 includes:
   - auth
+  - user
 
 search: true
 ---
