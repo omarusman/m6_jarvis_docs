@@ -20,7 +20,7 @@ Fields | Required
 __email__ | yes
 
 <aside class="notice">
-This <strong>does not</strong> require an <a href="#authentication">authentication</a>.
+This requires an <a href="#authentication">authentication</a>.
 </aside>
 
 > Request:

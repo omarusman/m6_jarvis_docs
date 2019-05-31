@@ -191,3 +191,142 @@ dataTask.resume()
 }
 ```
 
+## View User
+
+Allows to view a user.
+
+> GraphQL Query:
+
+```graphql 
+query {
+  viewUser(id: 435) {
+    id
+    uuid
+    name
+    email
+    role
+    company_id
+    parent_id
+    admin_token
+    profile_picture
+    first_login
+    last_login
+    tfa_secret
+    created_at
+    updated_at
+  }
+}
+```
+
+<aside class="notice">
+This requires an <a href="#authentication">authentication</a>.
+</aside>
+
+> Request:
+
+```shell
+curl --request POST \
+  --url http://localhost:8000/graphql \
+  --header 'content-type: application/json' \
+  --data '{"query":"query {\n  viewUser(id: 435) {\n    id\n    uuid\n    name\n    email\n    role\n    company_id\n    parent_id\n    admin_token\n    profile_picture\n    first_login\n    last_login\n    tfa_secret\n    created_at\n    updated_at\n  }\n}\n"}'
+```
+
+```javascript
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "http://localhost:8000/graphql",
+  "method": "POST",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "data": "{\"query\":\"query {\\n  viewUser(id: 435) {\\n    id\\n    uuid\\n    name\\n    email\\n    role\\n    company_id\\n    parent_id\\n    admin_token\\n    profile_picture\\n    first_login\\n    last_login\\n    tfa_secret\\n    created_at\\n    updated_at\\n  }\\n}\\n\"}"
+}
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+```
+
+```php
+<?php
+
+$client = new http\Client;
+$request = new http\Client\Request;
+
+$body = new http\Message\Body;
+$body->append('{"query":"query {\\n  viewUser(id: 435) {\\n    id\\n    uuid\\n    name\\n    email\\n    role\\n    company_id\\n    parent_id\\n    admin_token\\n    profile_picture\\n    first_login\\n    last_login\\n    tfa_secret\\n    created_at\\n    updated_at\\n  }\\n}\\n"}');
+
+$request->setRequestUrl('http://localhost:8000/graphql');
+$request->setRequestMethod('POST');
+$request->setBody($body);
+
+$request->setHeaders(array(
+  'content-type' => 'application/json'
+));
+
+$client->enqueue($request)->send();
+$response = $client->getResponse();
+
+echo $response->getBody();
+```
+
+```java 
+HttpResponse<String> response = Unirest.post("http://localhost:8000/graphql")
+  .header("content-type", "application/json")
+  .body("{\"query\":\"query {\\n  viewUser(id: 435) {\\n    id\\n    uuid\\n    name\\n    email\\n    role\\n    company_id\\n    parent_id\\n    admin_token\\n    profile_picture\\n    first_login\\n    last_login\\n    tfa_secret\\n    created_at\\n    updated_at\\n  }\\n}\\n\"}")
+  .asString();
+```
+
+```swift 
+import Foundation
+
+let headers = ["content-type": "application/json"]
+
+let postData = NSData(data: "{"query":"query {\n  viewUser(id: 435) {\n    id\n    uuid\n    name\n    email\n    role\n    company_id\n    parent_id\n    admin_token\n    profile_picture\n    first_login\n    last_login\n    tfa_secret\n    created_at\n    updated_at\n  }\n}\n"}".data(using: String.Encoding.utf8)!)
+
+let request = NSMutableURLRequest(url: NSURL(string: "http://localhost:8000/graphql")! as URL,
+                                        cachePolicy: .useProtocolCachePolicy,
+                                    timeoutInterval: 10.0)
+request.httpMethod = "POST"
+request.allHTTPHeaderFields = headers
+request.httpBody = postData as Data
+
+let session = URLSession.shared
+let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+  if (error != nil) {
+    print(error)
+  } else {
+    let httpResponse = response as? HTTPURLResponse
+    print(httpResponse)
+  }
+})
+
+dataTask.resume()
+```
+
+> Response:
+
+```json
+{
+  "data": {
+    "viewUser": {
+      "id": "435",
+      "uuid": "912a6cd0-3f84-4703-972f-76380105a414",
+      "name": "John Doe",
+      "email": "john14@doe.com",
+      "role": "subscriber",
+      "company_id": "912a6cd0-3f84-4703-972f-76380105a413",
+      "parent_id": null,
+      "admin_token": null,
+      "profile_picture": null,
+      "first_login": null,
+      "last_login": null,
+      "tfa_secret": null,
+      "created_at": "2019-05-31 16:57:36",
+      "updated_at": "2019-05-31 16:57:36"
+    }
+  }
+}
+```
+
