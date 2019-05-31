@@ -218,6 +218,10 @@ query {
 }
 ```
 
+Fields | Required
+---------- | ------- 
+__id__ | yes
+
 <aside class="notice">
 This requires an <a href="#authentication">authentication</a>.
 </aside>
@@ -361,7 +365,19 @@ __Input Parameters:__
 
 Fields | Required
 ---------- | ------- 
-__email__ | yes
+__id__ | yes
+__uuid__ | no
+__email__ | no
+__password__ | no
+__role__ | no
+__company_id__ | no
+__parent_id__ | no
+__admin_token__ | no
+__admin_token__ | no
+__profile_picture__ | no
+__first_login__ | no
+__last_login__ | no
+__tfa_secret__ | no
 
 <aside class="notice">
 This requires an <a href="#authentication">authentication</a>.
@@ -483,6 +499,156 @@ dataTask.resume()
       "tfa_secret": null,
       "created_at": "2019-05-31 16:57:36",
       "updated_at": "2019-05-31 17:27:25"
+    }
+  }
+}
+```
+
+## Delete User
+
+Allows to delete an existing user.
+
+> GraphQL Query:
+
+```graphql 
+mutation {
+  deleteUser(id: 386) {
+    id
+    uuid
+    name
+    email
+    role
+    company_id
+    parent_id
+    admin_token
+    profile_picture
+    first_login
+    last_login
+    tfa_secret
+    created_at
+    updated_at
+  }
+}
+
+```
+
+__Input Parameters:__
+
+Fields | Required
+---------- | ------- 
+__id__ | yes
+
+<aside class="notice">
+This requires an <a href="#authentication">authentication</a>.
+</aside>
+
+<aside class="notice">
+This returns a <a href="#user-type">User Type</a>.
+</aside>
+
+> Request:
+
+```shell
+curl --request POST \
+  --url http://localhost:8000/graphql \
+  --header 'content-type: application/json' \
+  --data '{"query":"mutation {\n  deleteUser(id: 386) {\n    id\n    uuid\n    name\n    email\n    role\n    company_id\n    parent_id\n    admin_token\n    profile_picture\n    first_login\n    last_login\n    tfa_secret\n    created_at\n    updated_at\n  }\n}\n"}'
+```
+
+```javascript
+var settings = {
+  "async": true,
+  "crossDomain": true,
+  "url": "http://localhost:8000/graphql",
+  "method": "POST",
+  "headers": {
+    "content-type": "application/json"
+  },
+  "data": "{\"query\":\"mutation {\\n  deleteUser(id: 386) {\\n    id\\n    uuid\\n    name\\n    email\\n    role\\n    company_id\\n    parent_id\\n    admin_token\\n    profile_picture\\n    first_login\\n    last_login\\n    tfa_secret\\n    created_at\\n    updated_at\\n  }\\n}\\n\"}"
+}
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+```
+
+```php
+<?php
+
+$client = new http\Client;
+$request = new http\Client\Request;
+
+$body = new http\Message\Body;
+$body->append('{"query":"mutation {\\n  deleteUser(id: 386) {\\n    id\\n    uuid\\n    name\\n    email\\n    role\\n    company_id\\n    parent_id\\n    admin_token\\n    profile_picture\\n    first_login\\n    last_login\\n    tfa_secret\\n    created_at\\n    updated_at\\n  }\\n}\\n"}');
+
+$request->setRequestUrl('http://localhost:8000/graphql');
+$request->setRequestMethod('POST');
+$request->setBody($body);
+
+$request->setHeaders(array(
+  'content-type' => 'application/json'
+));
+
+$client->enqueue($request)->send();
+$response = $client->getResponse();
+
+echo $response->getBody();
+```
+
+```java 
+HttpResponse<String> response = Unirest.post("http://localhost:8000/graphql")
+  .header("content-type", "application/json")
+  .body("{\"query\":\"mutation {\\n  deleteUser(id: 386) {\\n    id\\n    uuid\\n    name\\n    email\\n    role\\n    company_id\\n    parent_id\\n    admin_token\\n    profile_picture\\n    first_login\\n    last_login\\n    tfa_secret\\n    created_at\\n    updated_at\\n  }\\n}\\n\"}")
+  .asString();
+```
+
+```swift 
+import Foundation
+
+let headers = ["content-type": "application/json"]
+
+let postData = NSData(data: "{"query":"mutation {\n  deleteUser(id: 386) {\n    id\n    uuid\n    name\n    email\n    role\n    company_id\n    parent_id\n    admin_token\n    profile_picture\n    first_login\n    last_login\n    tfa_secret\n    created_at\n    updated_at\n  }\n}\n"}".data(using: String.Encoding.utf8)!)
+
+let request = NSMutableURLRequest(url: NSURL(string: "http://localhost:8000/graphql")! as URL,
+                                        cachePolicy: .useProtocolCachePolicy,
+                                    timeoutInterval: 10.0)
+request.httpMethod = "POST"
+request.allHTTPHeaderFields = headers
+request.httpBody = postData as Data
+
+let session = URLSession.shared
+let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+  if (error != nil) {
+    print(error)
+  } else {
+    let httpResponse = response as? HTTPURLResponse
+    print(httpResponse)
+  }
+})
+
+dataTask.resume()
+```
+
+> Response:
+
+```json
+{
+  "data": {
+    "deleteUser": {
+      "id": "386",
+      "uuid": "912a6cd0-3f84-4703-972f-76380105a412",
+      "name": "John Doe",
+      "email": "john@doe.com",
+      "role": "subscriber",
+      "company_id": null,
+      "parent_id": null,
+      "admin_token": null,
+      "profile_picture": null,
+      "first_login": null,
+      "last_login": null,
+      "tfa_secret": null,
+      "created_at": "2019-05-30 14:28:37",
+      "updated_at": "2019-05-31 17:36:33"
     }
   }
 }
