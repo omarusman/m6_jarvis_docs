@@ -261,7 +261,7 @@ This requires an <a href="#authentication">authentication</a>.
 </aside>
 
 <aside class="success">
-This returns a paginated <a href="#user-type">User Type</a>.
+This returns a <a href="#user-type">User Type</a>.
 </aside>
 
 > Request:
